@@ -12,8 +12,7 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
 
   useEffect(() => {
     if (!inView) return
-    const controls = motionValue.set(value)
-    return () => controls?.stop?.()
+    motionValue.set(value)
   }, [inView, value, motionValue])
 
   return (
