@@ -160,7 +160,7 @@ export default function Hero() {
                 transition={{ duration: 0.8, delay: STATS.indexOf(stat) * 0.1 }}
                 className="flex-1 text-center py-6 px-4 flex flex-col justify-center"
               >
-                <motion.div className="text-3xl lg:text-4xl font-bold text-slate-900">
+                <motion.div className="text-xl lg:text-2xl font-bold text-slate-900">
                   <Counter value={stat.value} suffix={stat.suffix} />
                 </motion.div>
                 <div className="text-xs uppercase tracking-widest text-slate-400 font-bold mt-2">
