@@ -63,29 +63,38 @@ export default function WhyCore() {
           <p className="text-slate-400 mb-8 max-w-md mx-auto text-sm">
             CORE has conducted surveys for candidates and leaders from all major political parties in Kerala
           </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            {PARTIES.map((party) => (
-              <span
-                key={party.name}
-                className="px-5 py-2 rounded-full text-xs font-bold text-white transition-all duration-300 hover:scale-105 cursor-default"
-                style={{
-                  backgroundColor: party.color,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = "transparent"
-                  e.currentTarget.style.color = party.color
-                  e.currentTarget.style.boxShadow = `inset 0 0 0 2px ${party.color}`
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = party.color
-                  e.currentTarget.style.color = "white"
-                  e.currentTarget.style.boxShadow = "none"
-                }}
-              >
-                {party.name}
-              </span>
-            ))}
-          </div>
+            <div className="flex flex-wrap justify-center gap-6">
+              {PARTIES.map((party) => {
+                const getLogoFilename = () => {
+                  switch (party.name) {
+                    case 'CPI': return 'cpi.avif';
+                    case 'CPI(M)': return 'cpim.png';
+                    case 'INC': return 'inc.png';
+                    case 'JDS': return 'jds.png';
+                    case 'KC(J)': return 'kcj.png';
+                    case 'KC(M)': return 'kcm.png';
+                    case 'NCP': return 'ncp.png';
+                    default: return `${party.name.toLowerCase()}.png`;
+                  }
+                };
+
+                return (
+                  <div
+                    key={party.name}
+                    className="flex flex-col items-center gap-2 transition-all duration-300 hover:scale-105 cursor-default"
+                  >
+                    <img
+                      src={`/parties/${getLogoFilename()}`}
+                      alt={`${party.name} logo`}
+                      className="h-12 w-12 object-contain"
+                    />
+                    <span className="text-xs font-bold text-slate-900">
+                      {party.name}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
         </motion.div>
       </div>
     </section>

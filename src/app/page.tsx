@@ -1,16 +1,17 @@
-import Navbar from "@/components/sections/Navbar"
-import Hero from "@/components/sections/Hero"
-import About from "@/components/sections/About"
-import Stats from "@/components/sections/Stats"
-import Services from "@/components/sections/Services"
-import SocialProof from "@/components/sections/SocialProof"
-import Timeline from "@/components/sections/Timeline"
-import Methodology from "@/components/sections/Methodology"
-import WhyCore from "@/components/sections/WhyCore"
-import Contact from "@/components/sections/Contact"
-import Footer from "@/components/sections/Footer"
-import LoadingScreen from "@/components/ui/LoadingScreen"
-import ScrollProgress from "@/components/ui/ScrollProgress"
+import Navbar from "@/components/sections/Navbar";
+import Hero from "@/components/sections/Hero";
+import About from "@/components/sections/About";
+import Stats from "@/components/sections/Stats";
+import Services from "@/components/sections/Services";
+import SocialProof from "@/components/sections/SocialProof";
+import Timeline from "@/components/sections/Timeline";
+import Methodology from "@/components/sections/Methodology";
+import WhyCore from "@/components/sections/WhyCore";
+import Contact from "@/components/sections/Contact";
+import Footer from "@/components/sections/Footer";
+import LoadingScreen from "@/components/ui/LoadingScreen";
+import ScrollProgress from "@/components/ui/ScrollProgress";
+import ClientsSection from "@/components/sections/ClientSection";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
         <Hero />
         <About />
         <Stats />
+        <ClientsSection />
         <Services />
         <SocialProof />
         <Timeline />
@@ -31,5 +33,5 @@ export default function Home() {
         <Footer />
       </main>
     </>
-  )
+  );
 }

@@ -1,16 +1,16 @@
-import { NextRequest, NextResponse } from "next/server"
-import nodemailer from "nodemailer"
+import { NextRequest, NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
-    const { name, role, phone, message } = body
+    const body = await request.json();
+    const { name, role, phone, message } = body;
 
     if (!name || !phone || !message) {
       return NextResponse.json(
         { error: "Name, phone, and message are required" },
-        { status: 400 }
-      )
+        { status: 400 },
+      );
     }
 
     const transporter = nodemailer.createTransport({
@@ -21,12 +21,12 @@ export async function POST(request: NextRequest) {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
-    })
+    });
 
     if (process.env.SMTP_USER && process.env.SMTP_PASS) {
       await transporter.sendMail({
         from: `"CORE Website" <${process.env.SMTP_USER}>`,
-        to: process.env.EMAIL_TO || "contact@coreindia.in",
+        to: process.env.EMAIL_TO || "contact@thecoresurvey.in",
         subject: `New Inquiry from ${name}`,
         html: `
           <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
@@ -52,15 +52,15 @@ export async function POST(request: NextRequest) {
             <p style="color: #999; font-size: 12px; margin-top: 24px;">Sent from CORE website contact form</p>
           </div>
         `,
-      })
+      });
     }
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Contact form error:", error)
+    console.error("Contact form error:", error);
     return NextResponse.json(
       { error: "Failed to send message" },
-      { status: 500 }
-    )
+      { status: 500 },
+    );
   }
 }

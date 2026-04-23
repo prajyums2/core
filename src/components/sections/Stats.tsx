@@ -1,31 +1,13 @@
-"use client"
+"use client";
 
-import { useEffect, useRef } from "react"
-import { motion, useInView, useMotionValue, useTransform } from "framer-motion"
-import { STATS } from "@/lib/constants"
-
-function Counter({ value, suffix }: { value: number; suffix: string }) {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true })
-  const motionValue = useMotionValue(0)
-  const rounded = useTransform(motionValue, (latest) => Math.round(latest))
-
-  useEffect(() => {
-    if (!inView) return
-    motionValue.set(value)
-  }, [inView, value, motionValue])
-
-  return (
-    <span ref={ref}>
-      <motion.span>{rounded}</motion.span>
-      {suffix}
-    </span>
-  )
-}
+import { motion } from "framer-motion";
+import { STATS } from "@/lib/constants";
+import Counter from "@/components/ui/Counter";
 
 export default function Stats() {
   return (
     <section className="section-padding bg-navy text-white overflow-hidden relative">
+      {/* Background Glow */}
       <div className="absolute inset-0">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[120px]" />
       </div>
@@ -45,7 +27,7 @@ export default function Stats() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
           {STATS.map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -56,6 +38,7 @@ export default function Stats() {
               className="text-center"
             >
               <div className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2 tabular-nums">
+                {/* Using our shiny new reusable component! */}
                 <Counter value={stat.value} suffix={stat.suffix} />
               </div>
               <div className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">
@@ -66,5 +49,5 @@ export default function Stats() {
         </div>
       </div>
     </section>
-  )
+  );
 }
