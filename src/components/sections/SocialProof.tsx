@@ -14,9 +14,9 @@ const PARTNERS = [
   {
     id: "mathrubhumi",
     logo: "/MAthrubhumi logo.png",
-    alt: "Mathrubhumi News",
+    alt: "Mathrubhumi News & Mathrubhumi Daily",
     description:
-      "Partnered with Mathrubhumi News to provide expert electoral intelligence and comprehensive public opinion analysis.",
+      "Partnered with Mathrubhumi News and Mathrubhumi Daily to provide expert electoral intelligence and comprehensive public opinion analysis.",
   },
 ];
 
@@ -24,7 +24,7 @@ export default function SocialProof() {
   return (
     <section className="py-24 bg-[#fafafa] border-y border-slate-100 overflow-hidden">
       <div className="container-custom max-w-5xl mx-auto px-6">
-        {/* Header Section */}
+        
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -55,7 +55,6 @@ export default function SocialProof() {
           </p>
         </motion.div>
 
-        {/* Alternating Content Layout */}
         <div className="flex flex-col gap-16 md:gap-24">
           {PARTNERS.map((partner, index) => {
             const isEven = index % 2 === 0;
@@ -67,24 +66,25 @@ export default function SocialProof() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.7, ease: "easeOut" }}
-                // The magic happens here: md:flex-row-reverse flips the order for odd indices
                 className={`flex flex-col md:flex-row items-center gap-8 md:gap-16 ${
                   isEven ? "" : "md:flex-row-reverse"
                 }`}
               >
                 {/* Visual/Logo Side */}
                 <div className="w-full md:w-1/2 flex justify-center">
-                  <div className="relative w-full max-w-[320px] aspect-[4/3] rounded-2xl bg-white border border-slate-200/60 shadow-lg flex items-center justify-center p-8 group overflow-hidden">
-                    {/* Subtle gradient background effect */}
+                  {/* Container aggressively sized up */}
+                  <div className="relative w-full max-w-[320px] md:max-w-[420px] aspect-[4/3] rounded-2xl bg-white border border-slate-200/60 shadow-lg flex items-center justify-center p-8 md:p-12 group overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-white opacity-50" />
 
-                    <Image
-                      src={partner.logo}
-                      alt={partner.alt}
-                      width={200}
-                      height={80}
-                      className="relative z-10 w-[160px] h-auto object-contain transition-transform duration-500 group-hover:scale-105"
-                    />
+                    {/* Image forced to fill the massive container */}
+                    <div className="relative w-full h-full">
+                      <Image
+                        src={partner.logo}
+                        alt={partner.alt}
+                        fill
+                        className="object-contain transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
                   </div>
                 </div>
 

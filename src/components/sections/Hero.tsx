@@ -3,16 +3,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { STATS } from "@/lib/constants";
-// Import our new reusable, animated Counter component
 import Counter from "@/components/ui/Counter";
 
-// 1. Text Animation Component
 function SplitText({ text, delay = 0 }: { text: string; delay?: number }) {
   const words = text.split(" ");
   return (
-    <span className="inline">
+    <span className="inline flex justify-center">
       {words.map((word, i) => (
-        <span key={i} className="inline-block mr-[0.25em]">
+        <span 
+          key={i} 
+          className={`inline-block ${i !== words.length - 1 ? "mr-[0.25em]" : ""}`}
+        >
           {word.split("").map((char, j) => (
             <motion.span
               key={`${i}-${j}`}
@@ -34,7 +35,6 @@ function SplitText({ text, delay = 0 }: { text: string; delay?: number }) {
   );
 }
 
-// 2. Main Hero Component
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
@@ -53,7 +53,7 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#fafafa] px-6 py-24"
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#fafafa] px-6 py-24 pt-16"
       id="hero"
     >
       {/* Background Decorators */}
@@ -70,40 +70,43 @@ export default function Hero() {
         className="absolute bottom-[10%] left-[10%] w-[350px] h-[350px] bg-accent/5 rounded-full blur-[100px]"
       />
 
-      <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center justify-center gap-12">
-        {/* TOP SECTION: Fades away on scroll */}
+      <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center justify-center gap-10 mt-16 md:mt-12">
+        
         <motion.div
           style={{ opacity: textOpacity }}
-          className="text-center flex flex-col items-center pt-12"
+          className="text-center flex flex-col items-center pt-8"
         >
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 2.3 }}
           >
-            <span className="inline-block px-4 py-1.5 mb-10 text-[11px] font-bold tracking-[0.3em] uppercase border border-slate-200 rounded-full text-slate-400">
+            <span className="inline-block px-4 py-1.5 mb-8 text-[11px] font-bold tracking-[0.3em] uppercase border border-slate-200 rounded-full text-slate-400 bg-white/50 backdrop-blur-sm shadow-sm">
               Citizens Opinion Research & Evaluation
             </span>
           </motion.div>
 
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-slate-900 leading-[1.15] mb-8">
-            <SplitText text="CORE - The Election" delay={2.4} />
-            <br />
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+          {/* REFINED TYPOGRAPHY BLOCK */}
+          <div className="flex flex-col items-center justify-center relative mb-8">
+            <h1 className="font-serif text-6xl sm:text-7xl md:text-8xl lg:text-[7.5rem] text-slate-900 leading-none tracking-normal pb-0 mb-0">
+              <SplitText text="CORE" delay={2.4} />
+            </h1>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 2.8 }}
-              className="bg-gradient-to-r from-accent to-accent-dark bg-clip-text text-transparent pb-2"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.5rem] font-serif italic bg-gradient-to-r from-accent to-accent-dark bg-clip-text text-transparent mt-1"
             >
-              Specialist
-            </motion.span>
-          </h1>
+              The Election Specialist
+            </motion.h2>
+          </div>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 3.2 }}
-            className="text-base sm:text-lg text-slate-400 font-light leading-relaxed mb-10 max-w-xl mx-auto"
+            className="text-base sm:text-lg text-slate-500 font-light leading-relaxed mb-10 max-w-2xl mx-auto"
           >
             Kerala&apos;s premier political strategy firm. We transform raw
             public opinion into actionable electoral intelligence.
@@ -144,26 +147,28 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* BOTTOM SECTION: Persistent Stats */}
+        {/* BOTTOM SECTION: Restored Clean Solid White Stats */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={statsVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="hidden md:block w-full mt-4"
+          className="hidden md:block w-full mt-2"
         >
-          <div className="flex flex-row w-full divide-x divide-slate-200/60 glass rounded-2xl border border-slate-200/60 shadow-sm bg-white/40 backdrop-blur-md overflow-hidden">
+          {/* Changed from glass/blur to solid white with a crisp drop shadow */}
+          <div className="flex flex-row w-full divide-x divide-slate-100 bg-white rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden">
             {STATS.map((stat, i) => (
               <motion.div
                 key={stat.label}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: STATS.indexOf(stat) * 0.1 }}
-                className="flex-1 text-center py-6 px-4 flex flex-col justify-center"
+                className="flex-1 text-center py-8 px-4 flex flex-col justify-center"
               >
-                <motion.div className="text-xl lg:text-2xl font-bold text-slate-900">
+                {/* Scaled the text down slightly to match the reference image's clean proportions */}
+                <motion.div className="text-2xl lg:text-2xl font-bold text-slate-900 mb-1">
                   <Counter value={stat.value} suffix={stat.suffix} />
                 </motion.div>
-                <div className="text-xs uppercase tracking-widest text-slate-400 font-bold mt-2">
+                <div className="text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold">
                   {stat.label}
                 </div>
               </motion.div>

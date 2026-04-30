@@ -13,10 +13,11 @@ const quickLinks = [
   { name: "Contact", href: "#contact" },
 ]
 
+// Updated with your official X and Instagram links!
 const socialLinks = [
+  { icon: Twitter, href: "https://x.com/thecoresurvey", label: "Twitter (X)" },
+  { icon: Instagram, href: "https://www.instagram.com/thecoresurvey", label: "Instagram" },
   { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Instagram, href: "#", label: "Instagram" },
   { icon: Facebook, href: "#", label: "Facebook" },
 ]
 
@@ -89,6 +90,8 @@ export default function Footer() {
                 <a
                   key={social.label}
                   href={social.href}
+                  target={social.href !== "#" ? "_blank" : "_self"}
+                  rel={social.href !== "#" ? "noopener noreferrer" : ""}
                   aria-label={social.label}
                   className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-accent transition-colors duration-300"
                 >

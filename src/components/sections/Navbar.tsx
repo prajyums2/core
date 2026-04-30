@@ -1,11 +1,10 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
-import Image from "next/image";
-// Import the MagneticButton component
-import MagneticButton from "@/components/ui/MagneticButton";
+import { useState, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { Menu, X } from "lucide-react"
+import Image from "next/image"
+import MagneticButton from "@/components/ui/MagneticButton"
 
 const navLinks = [
   { name: "About", href: "#about" },
@@ -13,44 +12,42 @@ const navLinks = [
   { name: "Timeline", href: "#timeline" },
   { name: "Methodology", href: "#methodology" },
   { name: "Contact", href: "#contact" },
-];
+]
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    const handleScroll = () => setScrolled(window.scrollY > 50)
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = "hidden"
     } else {
-      document.body.style.overflow = "";
+      document.body.style.overflow = ""
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
+    return () => { document.body.style.overflow = "" }
+  }, [isOpen])
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsOpen(false);
-    };
-    window.addEventListener("keydown", handleEsc);
-    return () => window.removeEventListener("keydown", handleEsc);
-  }, []);
+      if (e.key === "Escape") setIsOpen(false)
+    }
+    window.addEventListener("keydown", handleEsc)
+    return () => window.removeEventListener("keydown", handleEsc)
+  }, [])
 
   const handleNavClick = (href: string) => {
-    setIsOpen(false);
-    const el = document.querySelector(href);
+    setIsOpen(false)
+    const el = document.querySelector(href)
     if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+      el.scrollIntoView({ behavior: "smooth" })
     }
-  };
+  }
 
   return (
     <>
@@ -60,16 +57,17 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: "easeOut", delay: 2.2 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-4 md:px-6 ${scrolled ? "py-2" : "py-4"}`}
       >
-        <div
-          className={`max-w-7xl mx-auto flex justify-between items-center glass rounded-full px-5 md:px-8 py-3 transition-all duration-300 ${scrolled ? "shadow-md" : "shadow-sm"}`}
-        >
+        <div className={`max-w-7xl mx-auto flex justify-between items-center glass rounded-full px-5 md:px-8 py-3 transition-all duration-300 ${scrolled ? "shadow-md" : "shadow-sm"}`}>
+          
           <a href="#" className="flex items-center" aria-label="CORE Home">
-            <Image
-              src="/logo.png"
-              alt="CORE"
-              width={180}
-              height={94}
-              className="h-10 md:h-12 w-auto object-contain"
+            {/* ENLARGED LOGO */}
+            <Image 
+              src="/logo.png" 
+              alt="CORE" 
+              width={240} 
+              height={120} 
+              className="h-14 md:h-16 w-auto object-contain" 
+              priority
             />
           </a>
 
@@ -79,15 +77,13 @@ export default function Navbar() {
               <MagneticButton
                 key={link.name}
                 href={link.href}
-                // Added py-2 so the magnetic bounding box is easier to hit
                 className="relative group hover:text-slate-900 transition-colors py-2 px-1 cursor-pointer inline-block"
               >
                 {link.name}
                 <span className="absolute bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300" />
               </MagneticButton>
             ))}
-
-            {/* Main CTA with Magnetic Effect */}
+            
             <MagneticButton
               href="#contact"
               className="bg-navy text-white px-6 py-2.5 rounded-full hover:bg-accent transition-all duration-300 inline-block cursor-pointer"
@@ -151,5 +147,5 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </>
-  );
+  )
 }
